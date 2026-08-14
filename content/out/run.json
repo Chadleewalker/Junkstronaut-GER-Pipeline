@@ -1,0 +1,80 @@
+{
+  "pipeline": "junkstronaut-content-pipeline",
+  "mode": "stub",
+  "finished_at": "2026-08-14T04:35:21.840Z",
+  "duration_s": 0,
+  "design_document": "Junkstronaut GDD Short.txt",
+  "debris_catalog": "content/data/debris_catalog.snapshot.json",
+  "models": [
+    "claude-opus-5"
+  ],
+  "index": {
+    "chunks": 48,
+    "sections": 15
+  },
+  "retrieval": {
+    "k": 3,
+    "precision_at_1": 1,
+    "recall_at_k": 1,
+    "labelled_states": 27,
+    "mean_chars_per_item": 2917,
+    "share_of_document_per_item": 0.0704,
+    "share_of_document_pooled_max": 0.6543
+  },
+  "totals": {
+    "items": 57,
+    "corrections": 12,
+    "issues": 12,
+    "checks_run": 92,
+    "checks_failed": 0,
+    "escalated": 11,
+    "escalated_items": 9
+  },
+  "agents": [
+    {
+      "name": "bark-writer",
+      "attempts": 1,
+      "produced": 18
+    },
+    {
+      "name": "debris-flavourist",
+      "attempts": 1,
+      "produced": 30
+    },
+    {
+      "name": "postmortem-writer",
+      "attempts": 2,
+      "produced": 9
+    },
+    {
+      "name": "lore-critic.barks",
+      "verdict": "revise",
+      "flagged": 3,
+      "rechecked": "pass"
+    },
+    {
+      "name": "lore-critic.debris",
+      "verdict": "revise",
+      "flagged": 6,
+      "rechecked": "revise"
+    },
+    {
+      "name": "lore-critic.postmortems",
+      "verdict": "revise",
+      "flagged": 3,
+      "rechecked": "pass"
+    }
+  ],
+  "artifacts": [
+    "content/armstrong_barks.json",
+    "content/debris_flavour.json",
+    "content/postmortem_screens.json",
+    "content/content.gd",
+    "retrieval/retrieval_log.json",
+    "retrieval/tweak_comparison.json",
+    "critique/critique_log.json",
+    "checks/deterministic_checks.json",
+    "checks/needs_human.json",
+    "report/content.html"
+  ]
+}

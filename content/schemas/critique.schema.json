@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "required": ["agent", "verdict", "summary", "reviews"],
+  "additionalProperties": false,
+  "properties": {
+    "agent": { "const": "lore-critic" },
+    "verdict": { "type": "string", "enum": ["pass", "revise"] },
+    "summary": { "type": "string", "minLength": 20 },
+    "reviews": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "verdict", "issues"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "verdict": { "type": "string", "enum": ["pass", "revise", "reject"] },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["type", "quote", "evidence", "why"],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["contradicts_gdd", "wrong_voice", "invented_mechanic", "number_disagrees"]
+                },
+                "quote": { "type": "string", "minLength": 3 },
+                "evidence": { "type": "string", "minLength": 20 },
+                "cites": {
+                  "type": "array",
+                  "items": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?[a-z]?$" }
+                },
+                "why": { "type": "string", "minLength": 20 }
+              }
+            }
+          },
+          "corrected": {
+            "type": "object",
+            "patternProperties": { "^[a-z_]+$": { "type": ["string", "array"] } }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+# The debris sprite pack is licensed for use, NOT for redistribution:
+#   "You're free to use these assets in personal or commercial projects without restrictions."
+#   "You may not resell or redistribute the asset."
+#           — RehanDev, 300+ Asteroid and Space Junk Pixel
+#
+# So no art of any kind is published here, and that is enforced rather than remembered.
+# The pipeline runs without it: `--stub` replays a recorded run with no assets present.
+assets/
+art/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.aseprite
+
+# Node, if anyone adds tooling later. The pipeline itself has zero dependencies.
+node_modules/
+
+# Per-agent prompts and replies from the last run. Regenerated in about a second by
+# `node run-content.js --stub`, and the recorded replies they come from are tracked in
+# content/stubs/ — so nothing is lost. Not published because a retry prompt quotes the
+# absolute path of whatever machine produced the fixtures.
+content/out/logs/

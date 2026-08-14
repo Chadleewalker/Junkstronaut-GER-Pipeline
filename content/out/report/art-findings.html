@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Junkstronaut — debris sprites against their text</title>
+<style>
+:root {
+  --bg:#15171b; --panel:#1b1e24; --panel-2:#202430; --line:#2c313a;
+  --ink:#dde0e5; --ink-dim:#949aa4; --ink-faint:#6d737d;
+  --green:#7c9e63; --amber:#d8992c; --red:#c6503a; --void:#3a3d45;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace;
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: light) {
+  :root { --bg:#eae8e3; --panel:#f7f6f3; --panel-2:#efede8; --line:#d5d2cb;
+    --ink:#24272c; --ink-dim:#61666e; --ink-faint:#878c94;
+    --green:#55763f; --amber:#a8701a; --red:#a83a24; }
+}
+:root[data-theme="dark"] { --bg:#15171b; --panel:#1b1e24; --panel-2:#202430; --line:#2c313a;
+  --ink:#dde0e5; --ink-dim:#949aa4; --ink-faint:#6d737d;
+  --green:#7c9e63; --amber:#d8992c; --red:#c6503a; }
+:root[data-theme="light"] { --bg:#eae8e3; --panel:#f7f6f3; --panel-2:#efede8; --line:#d5d2cb;
+  --ink:#24272c; --ink-dim:#61666e; --ink-faint:#878c94;
+  --green:#55763f; --amber:#a8701a; --red:#a83a24; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+header{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 14px}
+h1{margin:0 0 14px;font-size:clamp(28px,4.2vw,40px);line-height:1.12;font-weight:620;letter-spacing:-.02em;text-wrap:balance}
+header p.lede{margin:0;max-width:64ch;color:var(--ink-dim);font-size:16px}
+.bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 0;margin-bottom:22px;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar button{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);background:transparent;border:1px solid var(--line);padding:7px 13px;cursor:pointer;border-radius:2px;transition:color .12s,border-color .12s,background .12s}
+.bar button:hover{color:var(--ink);border-color:var(--ink-faint)}
+.bar button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.bar button[aria-pressed="true"]{color:var(--bg);background:var(--ink);border-color:var(--ink)}
+.bar .n{font-variant-numeric:tabular-nums;opacity:.7;margin-left:6px}
+.piece{display:grid;grid-template-columns:4px 132px 1fr 168px;gap:0 22px;align-items:start;padding:22px 22px 22px 0;background:var(--panel);border:1px solid var(--line);border-left:0;margin-bottom:10px;border-radius:0 3px 3px 0}
+.piece[hidden]{display:none}
+.rail{align-self:stretch;background:var(--line);border-radius:3px 0 0 3px}
+.piece[data-verdict="match"] .rail{background:var(--green)}
+.piece[data-verdict="loose"] .rail{background:var(--amber)}
+.piece[data-verdict="mismatch"] .rail{background:var(--red)}
+.chip{background:var(--void);border-radius:2px;aspect-ratio:1;display:grid;place-items:center;padding:10px;margin-left:22px}
+.chip img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;image-rendering:crisp-edges}
+.chip-empty{border:1px dashed var(--line);background:transparent}
+.stand-in{font-family:var(--mono);font-size:11px;line-height:1.35;color:var(--ink-dim);text-align:center;padding:6px;text-wrap:balance}
+.note{margin:0 0 22px;padding:14px 16px;border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:0 3px 3px 0;background:var(--panel);color:var(--ink-dim);font-size:14px}
+.note strong{color:var(--ink)}
+.note a{color:inherit}
+.text h2{margin:0 0 4px;font-size:19px;font-weight:600;letter-spacing:-.01em}
+.ids{margin:0 0 12px;font-family:var(--mono);font-size:12px;color:var(--ink-faint)}
+.ids code{font:inherit}
+.flavour{margin:0 0 10px;max-width:62ch}
+.read,.drawn,.sug,.flag{margin:0 0 8px;font-size:13.5px;color:var(--ink-dim);max-width:68ch}
+.drawn{margin-bottom:0}
+.k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-right:6px}
+.sug code,.flag code{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border-radius:2px;margin-right:8px;white-space:nowrap;border:1px solid currentColor}
+.tag-match{color:var(--green)} .tag-loose{color:var(--amber)} .tag-mismatch{color:var(--red)}
+.mech{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.mech>div{min-width:0}
+.mech dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:2px}
+.mech dd{margin:0;font-family:var(--mono);font-size:15px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.mech dd.w{font-size:13px}
+.mech .u{font-size:10.5px;color:var(--ink-faint);margin-left:2px}
+.mech dd.yes{color:var(--amber)} .mech dd.no{color:var(--ink-faint)}
+.bandwrap{grid-column:1/-1}
+.band{position:relative;height:5px;background:var(--panel-2);border:1px solid var(--line);border-radius:3px;margin-top:5px}
+.band span{position:absolute;top:-2px;width:5px;height:7px;background:var(--ink);border-radius:1px;transform:translateX(-50%)}
+footer{margin-top:40px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink-faint);font-size:13px;max-width:70ch}
+footer code{font-family:var(--mono);font-size:12px}
+@media (max-width:820px){.piece{grid-template-columns:4px 96px 1fr;padding-right:18px}.mech{grid-column:2/-1;margin-top:16px;grid-template-columns:repeat(4,1fr)}.chip{margin-left:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="wrap">
+<header>
+  <p class="eyebrow">Junkstronaut &middot; content pipeline &middot; art check</p>
+  <h1>30 pieces of debris, each shown against the words written for it</h1>
+  <p class="lede">One agent described every sprite without being told its name. A second compared that blind reading to the name the catalogue assigns. The coloured rail is that comparison &mdash; not a human's, and not the writer's opinion of its own work.</p>
+</header>
+<p class="note"><strong>The sprites are not shown here.</strong> The pack is licensed for use in the game and explicitly not for redistribution, so this copy carries every finding and none of the pixels &mdash; each tile holds the blind reader's own description instead, which is what the verdict was decided on. The pack, including a free demo archive, is at <a href="https://rehandev.itch.io/300-asteroid-and-space-junk-pixel">rehandev.itch.io/300-asteroid-and-space-junk-pixel</a>; drop it in and run <code>node run-content.js --art &lt;dir&gt;</code> to regenerate this page with the art in place.</p>
+<nav class="bar" aria-label="Filter by verdict">
+  <button data-f="all" aria-pressed="true">All<span class="n">30</span></button>
+  <button data-f="mismatch" aria-pressed="false">Art disagrees<span class="n">7</span></button>
+  <button data-f="loose" aria-pressed="false">Loose fit<span class="n">12</span></button>
+  <button data-f="match" aria-pressed="false">Art matches<span class="n">11</span></button>
+</nav>
+<main>
+
+  <article class="piece" data-verdict="mismatch">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A cracked metal plate</span></div>
+    <div class="text">
+      <h2>Chipped Hull Slab</h2>
+      <p class="ids"><code>torn_foil_blanket</code></p>
+      <p class="flavour">A six-sided grey slab with fracture lines crawling right across its face and a notch bitten out of the top edge. Lightest thing in the whole field, and it still wants to come apart in the tether.</p>
+      <p class="read"><span class="k">Read blind as</span> A cracked metal plate &mdash; An irregular hexagonal grey slab with dark fracture lines running across its face and a chipped notch out of the upper right edge; bevelled highlight along the top-left.</p>
+      <p class="drawn"><span class="tag tag-mismatch">art disagrees</span> A rigid grey slab that fractures rather than creases is a hull plate, not foil, and the reading gives no soft, crumpled or reflective sheet material for the name to rest on.</p>
+      <p class="sug"><span class="k">Suggested id</span> <code>cracked_hull_plate</code></p>
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>15<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>53<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:0.0%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A layered mat or blanket</span></div>
+    <div class="text">
+      <h2>Scorched Layer Stack</h2>
+      <p class="ids"><code>crumpled_panel_stack</code></p>
+      <p class="flavour">Quilted beige sheeting over white, rust and blue under-layers, with a ragged burn hole punched clean through the top face. Cheap floor scrap, sold by the armful.</p>
+      <p class="read"><span class="k">Read blind as</span> A layered mat or blanket <em>(partial)</em> &mdash; A quilted pale beige top sheet drawn in perspective over stacked coloured under-layers (white, rust red, dark blue), with a ragged dark hole burnt through the middle of the top face.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> The stacking and damage line up with the name, but the layers read as quilted blanket material rather than panels, and the reader could only partly place the object, so the piece is usable while flavour text must not call the layers rigid panels.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>24<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>56<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:1.6%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">Broken shards of blue glass</span></div>
+    <div class="text">
+      <h2>Split Cell Panel Shards</h2>
+      <p class="ids"><code>cracked_solar_array</code></p>
+      <p class="flavour">Two angular gridded blue fragments, tilted apart where one panel let go. The pale edges are glass-sharp and the grid will keep on splitting if you jostle it.</p>
+      <p class="read"><span class="k">Read blind as</span> Broken shards of blue glass &mdash; Two angular flat fragments with gridded blue faces and pale edges, tilted apart from each other as if split from one gridded panel.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> Gridded blue faces split from a single panel are solar cells broken apart, which is exactly what the name claims.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>21<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>62<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:4.0%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A tangle of rusty rods</span></div>
+    <div class="text">
+      <h2>Tangled Rod Mat</h2>
+      <p class="ids"><code>bent_truss_section</code></p>
+      <p class="flavour">A dozen thin rusty bars crossed at every angle in a flat mat, speckled brown where the coating gave up. Scraped off the floor of the envelope, and it pays like the floor.</p>
+      <p class="read"><span class="k">Read blind as</span> A tangle of rusty rods <em>(partial)</em> &mdash; Roughly a dozen thin straight bars crossing at random angles in a loose flat mat, drawn in mottled brown with lighter speckling along their lengths.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> Thin bars are the right material for a truss, but the reading shows a loose tangle rather than a joined structural section and calls the bars straight, so neither the truss geometry nor the bend is supported.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>30<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>67<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:6.5%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A metal nozzle or bell</span></div>
+    <div class="text">
+      <h2>Spent Kick Motor Casing</h2>
+      <p class="ids"><code>spent_kick_motor_casing</code></p>
+      <p class="flavour">An hourglass of grey metal, flared at both ends with a sooty throat pinched in the middle. Compact, solid, and heavier in the hand than it looks from the cockpit.</p>
+      <p class="read"><span class="k">Read blind as</span> A metal nozzle or bell &mdash; A symmetrical hourglass form flaring wide at the top and again at the base, with vertical shading bands and a darker throat at the narrow waist; upright, viewed side-on.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A flared bell with a dark throat is a rocket motor casing and nozzle, and the charred colouring supports the spent state.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>36<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>74<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:9.4%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A dish on a stand</span></div>
+    <div class="text">
+      <h2>Collapsed Dish Frame</h2>
+      <p class="ids"><code>collapsed_dish_frame</code></p>
+      <p class="flavour">A shallow grey dish still bolted to its stump of a base, feed arm reaching over the centre, rim dented and split down one side. Bulky enough to fight you all the way to the hold.</p>
+      <p class="read"><span class="k">Read blind as</span> A dish on a stand &mdash; A shallow concave grey dish tilted up on a small trapezoid base, with a thin arm reaching from the rim to a knob suspended over the centre; the dish rim is dented and split on the lower right.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A dish with a feed arm on a base is the named object, and the dented, split rim supports the collapsed claim.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>82<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>87<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">oversized</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:15.1%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A rod with crossbars</span></div>
+    <div class="text">
+      <h2>Snapped Antenna Boom</h2>
+      <p class="ids"><code>shredded_antenna_mesh</code></p>
+      <p class="flavour">One long shaft carrying ten short crossbars, half of them kinked or broken off short, with a blue-grey lump fused near the low end. The rest snap if you swing it.</p>
+      <p class="read"><span class="k">Read blind as</span> A rod with crossbars <em>(partial)</em> &mdash; One long diagonal shaft carrying about ten short bars set across it at intervals, several of them kinked or snapped off short, with a small blue-grey lump near the lower end.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> A shaft with crossbars is an antenna and the snapped elements support damage, but nothing in the reading is a mesh, so the flavour text must not describe woven or shredded mesh.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>34<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>93<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:18.0%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A boxy unit in a yellow frame</span></div>
+    <div class="text">
+      <h2>Yellow-Framed Cell Box</h2>
+      <p class="ids"><code>cracked_battery_pallet</code></p>
+      <p class="flavour">A dark slab of a unit wrapped in a fat yellow crash frame, tipped on its side, one small inset port winking pale at the corner. Whole, and it survived whatever put it here.</p>
+      <p class="read"><span class="k">Read blind as</span> A boxy unit in a yellow frame <em>(partial)</em> &mdash; A dark grey slab body wrapped in a thick yellow border, tilted on its side; a small square inset with a pale dot sits at the upper left of the dark face.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> A boxed unit in a protective frame is consistent with a battery pallet, but the reader recorded it as intact, so the crack in the name has no support in the drawing.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>46<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>100<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:20.9%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A spoked wheel</span></div>
+    <div class="text">
+      <h2>Seized Reaction Wheel</h2>
+      <p class="ids"><code>seized_reaction_wheel_housing</code></p>
+      <p class="flavour">Eight spokes from a stubby hub out to a wide flat rim, one notch chewed out of the low edge. It does not turn any more and it does not care that you tried.</p>
+      <p class="read"><span class="k">Read blind as</span> A spoked wheel &mdash; Eight spokes running from a small central hub to a wide flat rim, shown flat-on; a short notch breaks the rim at the lower right.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A reaction wheel housing is a spoked wheel around a hub, and nothing in the reading contradicts the name.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>50<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>106<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:23.8%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="mismatch">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A cluster of broken rock</span></div>
+    <div class="text">
+      <h2>Pitted Slag Cluster</h2>
+      <p class="ids"><code>burst_pressurant_sphere</code></p>
+      <p class="flavour">Three or four black angular chunks jammed together, faces pitted, chipped edges going pale where something struck them. No seams, no fittings, nothing manufactured left in it.</p>
+      <p class="read"><span class="k">Read blind as</span> A cluster of broken rock <em>(partial)</em> &mdash; Three or four angular chunks with dark pitted faces and pale chipped edges pressed together, the largest wedge leaning right; no flat or manufactured surfaces.</p>
+      <p class="drawn"><span class="tag tag-mismatch">art disagrees</span> The reader explicitly found no manufactured surfaces and nothing spherical or vessel-like, so this is natural debris rather than a pressure vessel; no id is suggested because the reading is only partial.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>54<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>113<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:26.9%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A flat metal bracket plate</span></div>
+    <div class="text">
+      <h2>Bolted Bracket Plate</h2>
+      <p class="ids"><code>delaminated_radiator_fin</code></p>
+      <p class="flavour">A stepped grey plate with six bolt holes near the corners and two scratches scored across the middle. Thin enough that a rough grab is what finally folds it.</p>
+      <p class="read"><span class="k">Read blind as</span> A flat metal bracket plate &mdash; An irregular stepped grey plate with six small bolt holes near its corners and two short scratch lines scored across the middle; seen face-on.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> A flat grey plate is the right family for a radiator fin, but the reading shows a bolted bracket with only surface scratches, so there is no delamination and no radiator detail to write about.</p>
+      
+      <p class="flag"><span class="k">For a human</span> Sprite shows a solid bolted metal plate described as intact, yet the piece carries the FRAGILE flag — art and tuning disagree.</p>
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>48<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>120<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:30.1%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">Two solar panels</span></div>
+    <div class="text">
+      <h2>Paired Solar Wings</h2>
+      <p class="ids"><code>torn_solar_wing_spar</code></p>
+      <p class="flavour">Two tall wings side by side, ruled into dark blue cells with pale dividers, the right one sitting a few degrees out of true with its neighbour. Flat, awkward, and it catches on everything.</p>
+      <p class="read"><span class="k">Read blind as</span> Two solar panels &mdash; A pair of tall rectangular wings side by side, each ruled into a grid of dark blue cells with pale dividing lines and a light frame; the right wing is tilted slightly out of line with the left.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> The drawing is plainly a solar wing, but it shows the cell panels rather than a spar and the reader called it intact, so neither the spar nor the tear is supported beyond the slight misalignment.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>58<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>131<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:35.0%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A camera lens</span></div>
+    <div class="text">
+      <h2>Ringed Optics Barrel</h2>
+      <p class="ids"><code>cracked_optics_barrel</code></p>
+      <p class="flavour">A short ribbed cylinder on its side, front element dark and holding one bright cyan glint, with a spare ring section parked behind it. That glint goes the first time you knock it.</p>
+      <p class="read"><span class="k">Read blind as</span> A camera lens &mdash; A short cylinder lying on its side with a ringed barrel and a round dark front element holding a bright cyan glint; a separate stubby ring section sits behind it to the right.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> A ringed barrel with a front lens element is an optics barrel, but the reader recorded it as intact with a clean glinting element, so the crack in the name is not drawn.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>55<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>138<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:38.1%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A thick ring or hatch rim</span></div>
+    <div class="text">
+      <h2>Fractured Docking Collar</h2>
+      <p class="ids"><code>fractured_docking_collar</code></p>
+      <p class="flavour">A heavy hollow ring, thicker on one side, with a bite broken out of the upper rim and three specks of itself still drifting alongside. Whatever it held on to, it let go.</p>
+      <p class="read"><span class="k">Read blind as</span> A thick ring or hatch rim <em>(partial)</em> &mdash; A heavy circular band drawn in outline with a hollow centre, thicker and lighter on the left side, with a gap broken out of the upper right and three small loose specks floating beside it.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A heavy ring with a broken-out gap and shed fragments is a fractured docking collar on both object and condition.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>66<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>145<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:41.2%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A ribbed cylinder with a hose</span></div>
+    <div class="text">
+      <h2>Dead Thruster Housing</h2>
+      <p class="ids"><code>dead_thruster_quad</code></p>
+      <p class="flavour">A corrugated drum of pale ridged discs bolted to a tan block, with one brown feed line looping over the top and back down. Dry as a bone since the cascade.</p>
+      <p class="read"><span class="k">Read blind as</span> A ribbed cylinder with a hose <em>(partial)</em> &mdash; A stack of pale ridged discs forming a corrugated drum on the right, joined to a blocky tan housing on the left from which a dark brown tube loops up over the top and back down.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> A plumbed housing with a feed line fits propulsion hardware generally, but nothing in the reading shows four thrusters or any nozzle, so the flavour text must not describe a quad of bells.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>70<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>153<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:44.5%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A torn sheet of grey metal</span></div>
+    <div class="text">
+      <h2>Buckled Bulkhead Sheet</h2>
+      <p class="ids"><code>buckled_pressure_bulkhead</code></p>
+      <p class="flavour">A ragged-edged grey plate with a deep crease folded through it, shedding chips off one side as it turns. Oversized, unwieldy, and it costs you most of a trip on its own.</p>
+      <p class="read"><span class="k">Read blind as</span> A torn sheet of grey metal &mdash; An irregular ragged-edged plate with a crease running through it and small loose chips floating off to the right; shown at an angle.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A large creased and torn structural plate is a buckled bulkhead, and the crease directly supports the buckling claim.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>148<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>160<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">oversized</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:47.9%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="mismatch">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A rolled-up mat or blanket</span></div>
+    <div class="text">
+      <h2>Strapped Insulation Roll</h2>
+      <p class="ids"><code>ruptured_helium_tank</code></p>
+      <p class="flavour">Quilted blue soft goods rolled long and cinched at the waist with tan strapping, ends still puffed out. Intact, which around here counts as a small miracle.</p>
+      <p class="read"><span class="k">Read blind as</span> A rolled-up mat or blanket <em>(partial)</em> &mdash; A cylindrical roll banded around the middle with tan straps, blue quilted material at both ends, lying diagonally.</p>
+      <p class="drawn"><span class="tag tag-mismatch">art disagrees</span> Quilted material strapped into a roll is soft goods, not a pressure vessel, and the reader found no rupture; no id is suggested because the reading is only partial.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>76<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>167<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:51.0%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A shattered window pane</span></div>
+    <div class="text">
+      <h2>Shattered Star Tracker</h2>
+      <p class="ids"><code>shattered_star_tracker</code></p>
+      <p class="flavour">A bevelled frame holding pale blue glass, cracks radiating out from a black star-shaped hole punched dead centre. One more knock and you are hauling a frame full of grit.</p>
+      <p class="read"><span class="k">Read blind as</span> A shattered window pane &mdash; A rounded rectangular frame with bevelled corners holding pale blue glass, cracks radiating from a dark star-shaped hole in the centre.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A bevelled housing holding a cracked glass aperture is the optical face of a star tracker, and the radiating cracks support the shattered claim.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>72<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>174<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:54.1%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A control box with wires</span></div>
+    <div class="text">
+      <h2>Instrument Deck Cabinet</h2>
+      <p class="ids"><code>warped_gyro_deck</code></p>
+      <p class="flavour">An upright grey cabinet with a blue screen, rows of coloured indicator strips and a vent grid, red and blue cables spilling out the bottom and a yellow rod jutting off the top.</p>
+      <p class="read"><span class="k">Read blind as</span> A control box with wires &mdash; An upright grey cabinet with a blue screen, a grid of small holes, two rows of coloured indicator strips and buttons, with a red and a blue cable looping out of the bottom and a yellow rod jutting from the top right.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> An instrumented electronics cabinet is a fair reading of an avionics deck, but the reader found it intact and square, so nothing in the drawing is warped.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>84<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>182<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:57.5%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A pointed shield-shaped shell</span></div>
+    <div class="text">
+      <h2>Cracked Nose Cone Shell</h2>
+      <p class="ids"><code>cracked_ablative_nose_cone</code></p>
+      <p class="flavour">A tapering grey shell with a raised rib running down the spine and a jagged broken edge where the rest of it stayed behind. Already half gone, so handle the half you have.</p>
+      <p class="read"><span class="k">Read blind as</span> A pointed shield-shaped shell <em>(partial)</em> &mdash; A tapering grey cone or nose piece with a narrow raised rib down the middle and a jagged broken edge along the bottom.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A tapering nose shell with a jagged broken edge matches both the object and the cracked condition in the name.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>86<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>189<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:60.8%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A circuit board</span></div>
+    <div class="text">
+      <h2>Green Avionics Card</h2>
+      <p class="ids"><code>split_avionics_rack</code></p>
+      <p class="flavour">One green board, two fat black chips, a red can and a row of gold contact fingers along the bottom edge, with a mounting tab still sticking out the side. Snaps like a biscuit.</p>
+      <p class="read"><span class="k">Read blind as</span> A circuit board &mdash; A green rectangular board with two large black chips, a red component, small blue and yellow parts, and a row of gold contact fingers along the bottom edge; a metal tab sticks out at the left.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> A populated circuit board is avionics, but the reading shows one whole undamaged card rather than a split rack chassis, so the flavour text must not lean on the rack or the split.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>90<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>198<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:64.6%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="mismatch">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A broken circuit board piece</span></div>
+    <div class="text">
+      <h2>Torn Board Fragment</h2>
+      <p class="ids"><code>torn_reactor_shield_plate</code></p>
+      <p class="flavour">A jagged green shard with two yellow stripes and a couple of components clinging on, one splinter drifting free and a rust-brown wire curling underneath. Top-shelf scrap, and it pays like it.</p>
+      <p class="read"><span class="k">Read blind as</span> A broken circuit board piece <em>(partial)</em> &mdash; A jagged green fragment with two yellow stripes and a couple of small chips, a separated splinter floating to its left and a curled rust-brown wire hanging below.</p>
+      <p class="drawn"><span class="tag tag-mismatch">art disagrees</span> A green board fragment with components and a wire is electronics, not a slab of reactor shielding; no id is suggested because the reading is only partial.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>82<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>209<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:69.7%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A parabolic dish on a mount</span></div>
+    <div class="text">
+      <h2>Dented Deep Space Dish</h2>
+      <p class="ids"><code>cracked_deep_space_dish</code></p>
+      <p class="flavour">A grey dish on a blocky mount, feed arm on struts crossing its face, rim gone irregular where something folded it. Thin skin, high price, and it dents if you look at it wrong.</p>
+      <p class="read"><span class="k">Read blind as</span> A parabolic dish on a mount &mdash; A grey dish seen at a three-quarter angle with a strut-mounted feed arm crossing its face, sitting on a blocky base; the rim is dented and irregular.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A parabolic dish with a feed arm is the named antenna, and the dented irregular rim supports the damage claim.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>78<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>218<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:73.5%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">An empty picture frame with broken glass</span></div>
+    <div class="text">
+      <h2>Emptied Grid Frame</h2>
+      <p class="ids"><code>fused_ion_grid_assembly</code></p>
+      <p class="flavour">A square navy frame with nothing left inside it but pale cyan shards angling in from the corners and a hollow middle. What is left is edges, so tether it gently.</p>
+      <p class="read"><span class="k">Read blind as</span> An empty picture frame with broken glass <em>(partial)</em> &mdash; A square dark-blue frame whose interior holds only pale cyan shards angled inward from the corners, leaving a hollow middle.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> A square frame carrying an inner element fits a grid assembly, but the interior is empty apart from shards, so nothing shows a grid and shattered is the opposite of fused.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>88<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>226<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:77.3%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="mismatch">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A length of tangled cable</span></div>
+    <div class="text">
+      <h2>Severed Cable Run</h2>
+      <p class="ids"><code>severed_boom_mast</code></p>
+      <p class="flavour">A braided strand running long and twisted, frayed open into a bristly knot where it was cut. Bulky in the hold, and this high up every kilo of it pays.</p>
+      <p class="read"><span class="k">Read blind as</span> A length of tangled cable <em>(partial)</em> &mdash; A twisted braided rope-like strand running diagonally, frayed and splayed into a bristly knot at the upper right end.</p>
+      <p class="drawn"><span class="tag tag-mismatch">art disagrees</span> A braided flexible strand is a cable or tether, not a rigid boom mast, so only the severed end survives the comparison; no id is suggested because the reading is only partial.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>165<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>234<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">oversized</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:80.8%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="loose">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A tray of batteries</span></div>
+    <div class="text">
+      <h2>Cell Tray Assembly</h2>
+      <p class="ids"><code>scorched_fuel_cell_stack</code></p>
+      <p class="flavour">A grey open case partitioned into compartments of blocky cells, yellow, red and orange bars still marking charge on each one. Dense, tidy, and worth the climb.</p>
+      <p class="read"><span class="k">Read blind as</span> A tray of batteries &mdash; A grey open-topped case divided into compartments holding blocky cells, each with coloured bars — yellow, red, orange — marking charge levels.</p>
+      <p class="drawn"><span class="tag tag-loose">loose fit</span> A case of stacked power cells is the right object, but the reader found it intact with bright charge indicators and no soot, so nothing in the drawing is scorched.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>104<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>243<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:84.6%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="mismatch">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A water tank</span></div>
+    <div class="text">
+      <h2>Stencilled H2O Tank</h2>
+      <p class="ids"><code>shattered_cryo_dewar</code></p>
+      <p class="flavour">A bright cyan tank on its side, stub fittings at both ends, one nozzle up top and H2O stencilled black across the belly. Somebody's drinking water, worth a fortune this high up — and a shell thin enough to split on a rough haul.</p>
+      <p class="read"><span class="k">Read blind as</span> A water tank &mdash; A bright cyan rounded tank lying on its side with stub fittings at each end and a small nozzle on top; `H2O` is stencilled in dark letters across the middle panel.</p>
+      <p class="drawn"><span class="tag tag-mismatch">art disagrees</span> The stencilled H2O the artist drew makes this a water tank rather than a cryogenic dewar, and the reader found it intact rather than shattered.</p>
+      <p class="sug"><span class="k">Suggested id</span> <code>potable_water_tank</code></p>
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>98<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>251<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:88.4%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A bell-shaped nozzle</span></div>
+    <div class="text">
+      <h2>Sooted Engine Bell</h2>
+      <p class="ids"><code>impact_pitted_engine_bell</code></p>
+      <p class="flavour">A flared cone standing on ring ridges, throat black with soot and the base rim crusted rust-brown. Dense enough that the tether goes taut before you have finished pulling.</p>
+      <p class="read"><span class="k">Read blind as</span> A bell-shaped nozzle &mdash; A flared cone standing upright with stacked ring ridges down its body, a dark sooty throat, and a rust-brown crusted rim at the base.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A flared, ring-stiffened nozzle with a sooty throat and crusted rim is an engine bell showing surface damage, as the name claims.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>122<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>260<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">medium</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:92.2%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="mismatch">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A hex nut</span></div>
+    <div class="text">
+      <h2>Six-Sided Fastener Ring</h2>
+      <p class="ids"><code>cracked_command_module_hatch</code></p>
+      <p class="flavour">One small hex ring, face-on, hole through the middle, a highlight on the upper corner and nothing else in the cell. It will not take a knock, and it is absurd that a nut from up here outsells a panel from down low.</p>
+      <p class="read"><span class="k">Read blind as</span> A hex nut &mdash; A small six-sided ring seen face-on with a round hole through the middle and a light highlight on the upper left; nothing else in the cell.</p>
+      <p class="drawn"><span class="tag tag-mismatch">art disagrees</span> A plain six-sided fastener is a different object from a crew hatch, and the reader found nothing cracked or hatch-like in the cell.</p>
+      <p class="sug"><span class="k">Suggested id</span> <code>hex_nut_fastener</code></p>
+      <p class="flag"><span class="k">For a human</span> A solid steel nut drawn intact carries the FRAGILE flag — art and tuning disagree.</p>
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>112<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>268<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w yes">yes</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:96.0%"></span></dd></div>
+    </dl>
+  </article>
+
+  <article class="piece" data-verdict="match">
+    <div class="rail"></div>
+    <div class="chip chip-empty"><span class="stand-in">A metal canister</span></div>
+    <div class="text">
+      <h2>Armstrong's Module</h2>
+      <p class="ids"><code>armstrongs_module</code></p>
+      <p class="flavour">A grey canister lying diagonal, rimmed at both ends, two yellow bands around its body, one end dented and a chip broken off beside it. Apollo-era, older than the cascade, and heavier on its own than everything else in the field put together.</p>
+      <p class="read"><span class="k">Read blind as</span> A metal canister &mdash; A grey cylinder lying diagonally with rimmed ends and two yellow bands around its body; the lower left end is dented and a small chip is broken off beside it.</p>
+      <p class="drawn"><span class="tag tag-match">art matches</span> A banded cylinder with rimmed ends is a service module body, and the dent and broken chip give it the wear the piece implies; the size class is tuning and not the artist's to contradict.</p>
+      
+      
+    </div>
+    <dl class="mech">
+      <div><dt>Mass</dt><dd>3,600<span class="u">kg</span></dd></div>
+      <div><dt>Altitude</dt><dd>277<span class="u">km</span></dd></div>
+      <div><dt>Class</dt><dd class="w">small</dd></div>
+      <div><dt>Fragile</dt><dd class="w no">no</dd></div>
+      <div class="bandwrap"><dt>Band</dt><dd class="band"><span style="left:100.0%"></span></dd></div>
+    </dl>
+  </article>
+</main>
+<footer>
+  <p>Ordered by altitude, floor of the band to the top &mdash; the order the player meets them. The <strong>Band</strong> tick shows where each piece sits between 53&nbsp;km and 277&nbsp;km.</p>
+  <p>Generated 2026-08-14T04:35:21.840Z from <code>content/data/debris_catalog.snapshot.json</code>. The blind readings are in <code>out/art/art_reading.json</code>; the verdicts and their evidence are in <code>out/art/art_match.json</code>.</p>
+  <p>The version of this page with the sprites in it is written only where the pack is present, and never published.</p>
+</footer>
+</div>
+<script>
+(function(){
+  var b=document.querySelectorAll('.bar button'),p=document.querySelectorAll('.piece');
+  b.forEach(function(x){x.addEventListener('click',function(){
+    var f=x.dataset.f;
+    b.forEach(function(o){o.setAttribute('aria-pressed',String(o===x))});
+    p.forEach(function(e){e.hidden=!(f==='all'||e.dataset.verdict===f)});
+  })});
+})();
+</script>
+</body></html>

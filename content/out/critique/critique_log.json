@@ -1,0 +1,870 @@
+{
+  "generated_at": "2026-08-14T04:35:21.840Z",
+  "design_document": "Junkstronaut GDD Short.txt",
+  "pipeline": "content/run-content.js",
+  "note": "Generated from passages retrieved from the design document, then checked against those same passages by the lore critic. Corrections and the drafts they replaced are in critique/critique_log.json.",
+  "method": "The critic is given the generated items and the same retrieved passages the writer was given, and never the writer's reasoning. Corrections are applied by the orchestrator; the drafts they replaced are kept here as `before`.",
+  "by_type": {
+    "barks": {
+      "verdict": "revise",
+      "summary": "Fifteen of eighteen barks are clean; three state the fiction slightly past what the passages say — the first launch's fuel, what release can undo after a stow, and what a loss actually costs.",
+      "reviews": [
+        {
+          "id": "first_launch",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "you don't have the rest of your tank",
+              "evidence": "[2.5d] \"The base ship reaches the floor of the band on a ballistic arc with 29.5% of its tank left and a 97-second EVA window (measured). It can technically circularise at the floor, but arrives with 0% left and nothing to deorbit on — so the arc is the first launch's route\"",
+              "cites": [
+                "2.5d",
+                "2.6a"
+              ],
+              "why": "The passage is explicit that the base ship does have the fuel to circularise at the floor — what it does not have is anything left to deorbit on. The line replaces the real reason with a fuel shortfall the document denies."
+            }
+          ],
+          "corrected": {
+            "line": "Arc it, kid. Circularising is the rest of your tank — you'd get up there with nothing left to bring her back down."
+          }
+        },
+        {
+          "id": "climb_heat_first",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "staged",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "commit_floor_blocked",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "skim_complete",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "first_plasma",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "chute_green",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "shield_spent",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "hold_mass_amber",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "hold_mass_red",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "let something go, right hand button, and it drifts off clean",
+              "evidence": "[2.4a] \"Stow at the hold (E) to bank it. The greed decision: every trip out costs jetpack fuel and every stowed piece is permanent mass for the ride down.\" [2.4b] \"The greed decision is informed but never reversible in flight.\"",
+              "cites": [
+                "2.4a",
+                "2.4b"
+              ],
+              "why": "The dial crosses into red at a stow, so the mass that tripped it is already banked. Release (RMB) acts on the tethered piece, not on the hold — telling the player to shed mass now offers an undo the passages say does not exist."
+            }
+          ],
+          "corrected": {
+            "line": "Red on the scale, kid. What's banked is banked, and that ride down is destructive — the next piece you get on the tether, right hand button, let it drift."
+          }
+        },
+        {
+          "id": "return_lamp_red",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "tow_fee_charged",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "hard_landing",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "module_tethered",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "module_degraded",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "burned_up",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "your haul's the only thing that's gone",
+              "evidence": "[1b] \"Every loss resets the current run: the ship respawns on the pad, cash and upgrades persist, and only this run's haul and its turnaround cost are lost\"",
+              "cites": [
+                "1b"
+              ],
+              "why": "The document names two costs on a loss, the haul and the turnaround. Calling the haul the only loss understates the bill, and the bill is the register this game teaches failure in."
+            }
+          ],
+          "corrected": {
+            "line": "Suit was never rated for that, kid. She's back on the pad — you're out the haul and the cost of turning her around, and nothing past that."
+          }
+        },
+        {
+          "id": "ending_pristine",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "ending_refused",
+          "verdict": "pass",
+          "issues": []
+        }
+      ],
+      "corrections": [
+        {
+          "id": "first_launch",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "you don't have the rest of your tank",
+              "evidence": "[2.5d] \"The base ship reaches the floor of the band on a ballistic arc with 29.5% of its tank left and a 97-second EVA window (measured). It can technically circularise at the floor, but arrives with 0% left and nothing to deorbit on — so the arc is the first launch's route\"",
+              "cites": [
+                "2.5d",
+                "2.6a"
+              ],
+              "why": "The passage is explicit that the base ship does have the fuel to circularise at the floor — what it does not have is anything left to deorbit on. The line replaces the real reason with a fuel shortfall the document denies."
+            }
+          ],
+          "before": {
+            "line": "Arc it, kid. Circularising is the rest of your tank and you don't have the rest of your tank."
+          },
+          "after": {
+            "line": "Arc it, kid. Circularising is the rest of your tank — you'd get up there with nothing left to bring her back down."
+          }
+        },
+        {
+          "id": "hold_mass_red",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "let something go, right hand button, and it drifts off clean",
+              "evidence": "[2.4a] \"Stow at the hold (E) to bank it. The greed decision: every trip out costs jetpack fuel and every stowed piece is permanent mass for the ride down.\" [2.4b] \"The greed decision is informed but never reversible in flight.\"",
+              "cites": [
+                "2.4a",
+                "2.4b"
+              ],
+              "why": "The dial crosses into red at a stow, so the mass that tripped it is already banked. Release (RMB) acts on the tethered piece, not on the hold — telling the player to shed mass now offers an undo the passages say does not exist."
+            }
+          ],
+          "before": {
+            "line": "Red on the scale. That ride down is destructive — let something go, right hand button, and it drifts off clean."
+          },
+          "after": {
+            "line": "Red on the scale, kid. What's banked is banked, and that ride down is destructive — the next piece you get on the tether, right hand button, let it drift."
+          }
+        },
+        {
+          "id": "burned_up",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "your haul's the only thing that's gone",
+              "evidence": "[1b] \"Every loss resets the current run: the ship respawns on the pad, cash and upgrades persist, and only this run's haul and its turnaround cost are lost\"",
+              "cites": [
+                "1b"
+              ],
+              "why": "The document names two costs on a loss, the haul and the turnaround. Calling the haul the only loss understates the bill, and the bill is the register this game teaches failure in."
+            }
+          ],
+          "before": {
+            "line": "Suit was never rated for that, kid. Ship's on the pad — your haul's the only thing that's gone."
+          },
+          "after": {
+            "line": "Suit was never rated for that, kid. She's back on the pad — you're out the haul and the cost of turning her around, and nothing past that."
+          }
+        }
+      ],
+      "unresolved": [],
+      "recheck": {
+        "agent": "lore-critic",
+        "verdict": "pass",
+        "summary": "All three lines stay inside their passages — the arc-vs-circularise trade, the red zone's destructive verdict and RMB release, and the loss reset's haul-plus-turnaround cost are each stated as the document states them.",
+        "reviews": [
+          {
+            "id": "first_launch",
+            "verdict": "pass",
+            "issues": []
+          },
+          {
+            "id": "hold_mass_red",
+            "verdict": "pass",
+            "issues": []
+          },
+          {
+            "id": "burned_up",
+            "verdict": "pass",
+            "issues": []
+          }
+        ]
+      }
+    },
+    "debris": {
+      "verdict": "revise",
+      "summary": "Twenty-four items pass; six need work — three lean on shelves and rates the document explicitly cut, two drop the table's FRAGILE flag, and Armstrong's module invents a fuel cost for cargo mass.",
+      "reviews": [
+        {
+          "id": "torn_foil_blanket",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "Lightest thing on the low shelf",
+              "evidence": "[2.6a] \"One continuous orbital band, 50,000 m to 280,000 m, with a value gradient — no tiers, no discrete altitudes to keep in sync.\" [4.3] \"Discrete altitude bands. One continuous envelope with a value gradient does the same job with nothing to keep in sync (§2.6).\"",
+              "cites": [
+                "2.6a",
+                "4.3"
+              ],
+              "why": "\"The low shelf\" names a place in the field, which tells the player the envelope is divided into shelves. Discrete bands are the thing §4.3 records as cut. The superlative itself is fine — 15 kg is the lightest row in the table — so only the shelf has to go."
+            }
+          ],
+          "corrected": {
+            "flavour": "A six-sided grey slab with fracture lines crawling right across its face and a notch bitten out of the top edge. Lightest thing in the whole field, and it still wants to come apart in the tether."
+          }
+        },
+        {
+          "id": "crumpled_panel_stack",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "cracked_solar_array",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "bent_truss_section",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "Bottom-shelf steel that pays about what steel pays.",
+              "evidence": "[2.6a] \"a piece's value multiplier interpolates on its altitude from 1.0 at the floor to 5.5 at the ceiling ... Value scales with mass on top of the altitude gradient\"",
+              "cites": [
+                "2.6a",
+                "4.3"
+              ],
+              "why": "Two collisions in one clause. \"Bottom-shelf\" reads as a band, and \"pays about what steel pays\" says price comes from the material, when the document is explicit that price is mass times an altitude multiplier and nothing else. The piece is cheap because it is 30 kg at 67,000 m, not because it is steel."
+            }
+          ],
+          "corrected": {
+            "flavour": "A dozen thin rusty bars crossed at every angle in a flat mat, speckled brown where the coating gave up. Scraped off the floor of the envelope, and it pays like the floor."
+          }
+        },
+        {
+          "id": "spent_kick_motor_casing",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "collapsed_dish_frame",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "shredded_antenna_mesh",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "cracked_battery_pallet",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "seized_reaction_wheel_housing",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "burst_pressurant_sphere",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "delaminated_radiator_fin",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "torn_solar_wing_spar",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "cracked_optics_barrel",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "fractured_docking_collar",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "dead_thruster_quad",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "buckled_pressure_bulkhead",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "ruptured_helium_tank",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "shattered_star_tracker",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "warped_gyro_deck",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "cracked_ablative_nose_cone",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "split_avionics_rack",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "torn_reactor_shield_plate",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "cracked_deep_space_dish",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "fused_ion_grid_assembly",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "severed_boom_mast",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "it pays the top-shelf rate for every kilo of it",
+              "evidence": "[2.6a] \"no tiers, no discrete altitudes to keep in sync ... a piece's value multiplier interpolates on its altitude from 1.0 at the floor to 5.5 at the ceiling\"",
+              "cites": [
+                "2.6a",
+                "4.3"
+              ],
+              "why": "A \"rate\" is a band you either qualify for or do not. The multiplier interpolates continuously, so this piece at 234,000 m is worth a hair less per kilo than one at 259,000 m. The per-kilo half of the line is correct and should stay — value does scale with mass."
+            }
+          ],
+          "corrected": {
+            "flavour": "A braided strand running long and twisted, frayed open into a bristly knot where it was cut. Bulky in the hold, and this high up every kilo of it pays."
+          }
+        },
+        {
+          "id": "scorched_fuel_cell_stack",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "shattered_cryo_dewar",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "Somebody's drinking water, worth a fortune this high up.",
+              "evidence": "[loot table] \"shattered_cryo_dewar   98 kg | 251,000 m (top third) | medium | FRAGILE\"",
+              "cites": [
+                "4.3"
+              ],
+              "why": "The table flags this piece FRAGILE and the flavour gives the player nothing that reads as delicate — it is described as a solid tank and priced, and that is all. The flag is what the game spawns, so the text has to carry it. The water reading and the H2O stencil stay; they come from the sprite, and the sprite is the game."
+            }
+          ],
+          "corrected": {
+            "flavour": "A bright cyan tank on its side, stub fittings at both ends, one nozzle up top and H2O stencilled black across the belly. Somebody's drinking water, worth a fortune this high up — and a shell thin enough to split on a rough haul."
+          }
+        },
+        {
+          "id": "impact_pitted_engine_bell",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "cracked_command_module_hatch",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "One small hex ring, face-on, hole through the middle, a highlight on the upper corner and nothing else in the cell.",
+              "evidence": "[loot table] \"cracked_command_module_hatch   112 kg | 268,000 m (top third) | small | FRAGILE\" — and [4.3] \"Size classes, fragile flag, compactor, crane magnet, oversized junk. All exist to serve the endgame. Every piece is one slot; the module is simply very heavy.\"",
+              "cites": [
+                "4.3"
+              ],
+              "why": "Raising the document-versus-data collision once here, on the field it turns on: §4.3 records the fragile flag and size classes as cut from scope, and the loot table the game loads still carries both, on this row and eleven others. That is a collision between two files, not a fault in the writing, and it is not licence to strip fragility out of the twelve rows that carry it. The table is what ships, so this piece has to read as breakable and currently does not — it is drawn as a solid lump of hardware and the text adds nothing. The sale joke is sound: 112 kg at 268,000 m against 24 kg near the floor does outsell it by a wide margin."
+            }
+          ],
+          "corrected": {
+            "flavour": "One small hex ring, face-on, hole through the middle, a highlight on the upper corner and nothing else in the cell. It will not take a knock, and it is absurd that a nut from up here outsells a panel from down low."
+          }
+        },
+        {
+          "id": "armstrongs_module",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "invented_mechanic",
+              "quote": "it takes the whole tank to bring home",
+              "evidence": "[2.6a] \"a ballistic arc never pays for circularisation, which is most of the delta-v, but it comes back in faster and hotter and gives a short working window; circularising costs the rest of the tank and buys time.\"",
+              "cites": [
+                "2.6a",
+                "4.3"
+              ],
+              "why": "The passages spend the tank on the route — ballistic versus circularised — and never on the cargo. Cargo mass fights you \"on the tether and on the way down\", which is a handling and reentry cost, not a fuel cost. Saying this piece drinks the tank tells the player propellant scales with what is in the hold, which is a system nothing here defines. The weight itself is worth keeping and the table proves it: 3,600 kg against 2,094 kg for the other twenty-nine rows combined."
+            }
+          ],
+          "corrected": {
+            "flavour": "A grey canister lying diagonal, rimmed at both ends, two yellow bands around its body, one end dented and a chip broken off beside it. Apollo-era, older than the cascade, and heavier on its own than everything else in the field put together."
+          }
+        }
+      ],
+      "corrections": [
+        {
+          "id": "torn_foil_blanket",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "Lightest thing on the low shelf",
+              "evidence": "[2.6a] \"One continuous orbital band, 50,000 m to 280,000 m, with a value gradient — no tiers, no discrete altitudes to keep in sync.\" [4.3] \"Discrete altitude bands. One continuous envelope with a value gradient does the same job with nothing to keep in sync (§2.6).\"",
+              "cites": [
+                "2.6a",
+                "4.3"
+              ],
+              "why": "\"The low shelf\" names a place in the field, which tells the player the envelope is divided into shelves. Discrete bands are the thing §4.3 records as cut. The superlative itself is fine — 15 kg is the lightest row in the table — so only the shelf has to go."
+            }
+          ],
+          "before": {
+            "flavour": "A six-sided grey slab with fracture lines crawling right across its face and a notch bitten out of the top edge. Lightest thing on the low shelf, and it still wants to come apart in the tether."
+          },
+          "after": {
+            "flavour": "A six-sided grey slab with fracture lines crawling right across its face and a notch bitten out of the top edge. Lightest thing in the whole field, and it still wants to come apart in the tether."
+          }
+        },
+        {
+          "id": "bent_truss_section",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "Bottom-shelf steel that pays about what steel pays.",
+              "evidence": "[2.6a] \"a piece's value multiplier interpolates on its altitude from 1.0 at the floor to 5.5 at the ceiling ... Value scales with mass on top of the altitude gradient\"",
+              "cites": [
+                "2.6a",
+                "4.3"
+              ],
+              "why": "Two collisions in one clause. \"Bottom-shelf\" reads as a band, and \"pays about what steel pays\" says price comes from the material, when the document is explicit that price is mass times an altitude multiplier and nothing else. The piece is cheap because it is 30 kg at 67,000 m, not because it is steel."
+            }
+          ],
+          "before": {
+            "flavour": "A dozen thin rusty bars crossed at every angle in a flat mat, speckled brown where the coating gave up. Bottom-shelf steel that pays about what steel pays."
+          },
+          "after": {
+            "flavour": "A dozen thin rusty bars crossed at every angle in a flat mat, speckled brown where the coating gave up. Scraped off the floor of the envelope, and it pays like the floor."
+          }
+        },
+        {
+          "id": "severed_boom_mast",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "it pays the top-shelf rate for every kilo of it",
+              "evidence": "[2.6a] \"no tiers, no discrete altitudes to keep in sync ... a piece's value multiplier interpolates on its altitude from 1.0 at the floor to 5.5 at the ceiling\"",
+              "cites": [
+                "2.6a",
+                "4.3"
+              ],
+              "why": "A \"rate\" is a band you either qualify for or do not. The multiplier interpolates continuously, so this piece at 234,000 m is worth a hair less per kilo than one at 259,000 m. The per-kilo half of the line is correct and should stay — value does scale with mass."
+            }
+          ],
+          "before": {
+            "flavour": "A braided strand running long and twisted, frayed open into a bristly knot where it was cut. Bulky in the hold and it pays the top-shelf rate for every kilo of it."
+          },
+          "after": {
+            "flavour": "A braided strand running long and twisted, frayed open into a bristly knot where it was cut. Bulky in the hold, and this high up every kilo of it pays."
+          }
+        },
+        {
+          "id": "shattered_cryo_dewar",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "Somebody's drinking water, worth a fortune this high up.",
+              "evidence": "[loot table] \"shattered_cryo_dewar   98 kg | 251,000 m (top third) | medium | FRAGILE\"",
+              "cites": [
+                "4.3"
+              ],
+              "why": "The table flags this piece FRAGILE and the flavour gives the player nothing that reads as delicate — it is described as a solid tank and priced, and that is all. The flag is what the game spawns, so the text has to carry it. The water reading and the H2O stencil stay; they come from the sprite, and the sprite is the game."
+            }
+          ],
+          "before": {
+            "flavour": "A bright cyan tank on its side, stub fittings at both ends, one nozzle up top and H2O stencilled black across the belly. Somebody's drinking water, worth a fortune this high up."
+          },
+          "after": {
+            "flavour": "A bright cyan tank on its side, stub fittings at both ends, one nozzle up top and H2O stencilled black across the belly. Somebody's drinking water, worth a fortune this high up — and a shell thin enough to split on a rough haul."
+          }
+        },
+        {
+          "id": "cracked_command_module_hatch",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "One small hex ring, face-on, hole through the middle, a highlight on the upper corner and nothing else in the cell.",
+              "evidence": "[loot table] \"cracked_command_module_hatch   112 kg | 268,000 m (top third) | small | FRAGILE\" — and [4.3] \"Size classes, fragile flag, compactor, crane magnet, oversized junk. All exist to serve the endgame. Every piece is one slot; the module is simply very heavy.\"",
+              "cites": [
+                "4.3"
+              ],
+              "why": "Raising the document-versus-data collision once here, on the field it turns on: §4.3 records the fragile flag and size classes as cut from scope, and the loot table the game loads still carries both, on this row and eleven others. That is a collision between two files, not a fault in the writing, and it is not licence to strip fragility out of the twelve rows that carry it. The table is what ships, so this piece has to read as breakable and currently does not — it is drawn as a solid lump of hardware and the text adds nothing. The sale joke is sound: 112 kg at 268,000 m against 24 kg near the floor does outsell it by a wide margin."
+            }
+          ],
+          "before": {
+            "flavour": "One small hex ring, face-on, hole through the middle, a highlight on the upper corner and nothing else in the cell. Absurd that a nut from up here outsells a panel from down low."
+          },
+          "after": {
+            "flavour": "One small hex ring, face-on, hole through the middle, a highlight on the upper corner and nothing else in the cell. It will not take a knock, and it is absurd that a nut from up here outsells a panel from down low."
+          }
+        },
+        {
+          "id": "armstrongs_module",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "invented_mechanic",
+              "quote": "it takes the whole tank to bring home",
+              "evidence": "[2.6a] \"a ballistic arc never pays for circularisation, which is most of the delta-v, but it comes back in faster and hotter and gives a short working window; circularising costs the rest of the tank and buys time.\"",
+              "cites": [
+                "2.6a",
+                "4.3"
+              ],
+              "why": "The passages spend the tank on the route — ballistic versus circularised — and never on the cargo. Cargo mass fights you \"on the tether and on the way down\", which is a handling and reentry cost, not a fuel cost. Saying this piece drinks the tank tells the player propellant scales with what is in the hold, which is a system nothing here defines. The weight itself is worth keeping and the table proves it: 3,600 kg against 2,094 kg for the other twenty-nine rows combined."
+            }
+          ],
+          "before": {
+            "flavour": "A grey canister lying diagonal, rimmed at both ends, two yellow bands around its body, one end dented and a chip broken off beside it. Apollo-era, older than the cascade, and it takes the whole tank to bring home."
+          },
+          "after": {
+            "flavour": "A grey canister lying diagonal, rimmed at both ends, two yellow bands around its body, one end dented and a chip broken off beside it. Apollo-era, older than the cascade, and heavier on its own than everything else in the field put together."
+          }
+        }
+      ],
+      "unresolved": [],
+      "recheck": {
+        "agent": "lore-critic",
+        "verdict": "revise",
+        "summary": "Four of six hold up against the passages, the table and the art readings; two need a line each, and one item carries the standing collision between §4.3's cut size classes and the size_class column the table still ships.",
+        "reviews": [
+          {
+            "id": "torn_foil_blanket",
+            "verdict": "pass",
+            "issues": []
+          },
+          {
+            "id": "bent_truss_section",
+            "verdict": "revise",
+            "issues": [
+              {
+                "type": "number_disagrees",
+                "quote": "Scraped off the floor of the envelope, and it pays like the floor.",
+                "evidence": "[2.6a] \"One continuous orbital band, 50,000 m to 280,000 m, with a value gradient ... a piece's value multiplier interpolates on its altitude from 1.0 at the floor to 5.5 at the ceiling.\" Loot table: bent_truss_section 30 kg | 67,000 m; torn_foil_blanket sits lower at 52,500 m.",
+                "cites": [
+                  "2.6a"
+                ],
+                "why": "The floor is 50,000 m and pays 1.0x. This piece is 17 km above it at 67,000 m, the fourth row up, paying about 1.33x — low in the band, but not the floor and not floor money."
+              }
+            ],
+            "corrected": {
+              "flavour": "A dozen thin rusty bars crossed at every angle in a flat mat, speckled brown where the coating gave up. Low in the envelope, and it pays what low pays."
+            }
+          },
+          {
+            "id": "severed_boom_mast",
+            "verdict": "revise",
+            "issues": [
+              {
+                "type": "contradicts_gdd",
+                "quote": "Bulky in the hold, and this high up every kilo of it pays.",
+                "evidence": "[4.3] \"Size classes, fragile flag, compactor, crane magnet, oversized junk. All exist to serve the endgame. Every piece is one slot; the module is simply very heavy.\" Loot table: severed_boom_mast 165 kg | 234,000 m | oversized.",
+                "cites": [
+                  "4.3"
+                ],
+                "why": "The collision is between the document and the table, not inside the writing: §4.3 cut size classes and fixed every piece at one slot, and the table still carries a size_class column with oversized rows. Raising it once here for the whole set. The table is what the game spawns, so the bulk stays in the fiction; what does not stay is \"in the hold\", which asserts variable cargo space the passage explicitly closed."
+              }
+            ],
+            "corrected": {
+              "flavour": "A braided strand running long and twisted, frayed open into a bristly knot where it was cut. Unwieldy for its weight, and this high up every kilo of it pays."
+            }
+          },
+          {
+            "id": "shattered_cryo_dewar",
+            "verdict": "pass",
+            "issues": []
+          },
+          {
+            "id": "cracked_command_module_hatch",
+            "verdict": "revise",
+            "issues": [
+              {
+                "type": "wrong_voice",
+                "quote": "a highlight on the upper corner and nothing else in the cell",
+                "evidence": "[1c] \"Pillars: #Thematic — Scrapyard Spaceflight, blue-collar handmade spacecraft.\"",
+                "cites": [
+                  "1c"
+                ],
+                "why": "\"the cell\" is the contact sheet's grid square — production language about the sprite sheet, not a place in the world. A player reading this in the hold is being told about an art asset."
+              }
+            ],
+            "corrected": {
+              "flavour": "One small hex ring, face-on, hole through the middle, a highlight on the upper corner and nothing else to it. It will not take a knock, and it is absurd that a nut from up here outsells a panel from down low."
+            }
+          },
+          {
+            "id": "armstrongs_module",
+            "verdict": "pass",
+            "issues": []
+          }
+        ]
+      }
+    },
+    "postmortems": {
+      "verdict": "revise",
+      "summary": "Seven of nine screens hold; the (d) screen is titled STRANDED when the document resolves that clause as 0 HP, the refused screen plays Armstrong's fury as patience, and the stranded (c) screen asserts a descent the detector does not require.",
+      "reviews": [
+        {
+          "id": "landed",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "refused",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "Not like that, kid. She goes back up and you fly it again.",
+              "evidence": "[1b] \"or refused — the module delivered in scrap state, Armstrong's fury (finale only, §2.6)\"",
+              "cites": [
+                "1b",
+                "2.6c"
+              ],
+              "why": "The document names this ending's reaction specifically — Armstrong's fury — and it is the finale beat the graded endings pay off. The line as written is patient and forgiving, which is the register of a teaching turnaround, not of the one delivery he refuses."
+            }
+          ],
+          "corrected": {
+            "armstrong": "Scrap. You hauled me back scrap, kid. She goes up again and you don't bring her down like that twice."
+          }
+        },
+        {
+          "id": "zero_hp",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "burned_up",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "stranded",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "stranded_a",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "stranded_b",
+          "verdict": "pass",
+          "issues": []
+        },
+        {
+          "id": "stranded_c",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "The descent stayed under the heat-speed threshold, so it was survivable.",
+              "evidence": "[2.7a] \"An uncrewed ship grounding is a non-event — the ship parks inert and the run continues until the astronaut resolves it: board the parked ship → Landed; touch terrain not aboard → stranded.\"",
+              "cites": [
+                "2.7a",
+                "2.4c"
+              ],
+              "why": "The detector is touching terrain while not aboard, full stop. A slow descent through the interface is only one route in; the other is an astronaut already on the ground beside a parked, uncrewed hull, who never fell through anything. The screen would state a cause that did not happen."
+            }
+          ],
+          "corrected": {
+            "cause": "The astronaut touched terrain while not aboard the ship. How you got there does not change it — a slow fall that never got hot, or a step away from a hull parked on the ground. Landed needs the pilot aboard."
+          }
+        },
+        {
+          "id": "stranded_d",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "STRANDED",
+              "evidence": "[2.7b] \"(d) ship staged, chute shredded, on a descent whose minimum achievable touchdown speed exceeds the destruction cap — a conservative closed-form check, like the lamps — resolved immediately as 0 HP rather than flown out in real time.\"",
+              "cites": [
+                "2.7b",
+                "2.7a"
+              ],
+              "why": "Clause (d) is a branch of the unwinnability check, but the document says it resolves as 0 HP, not as stranded. Since every reachable end state resolves to exactly one outcome (§2.7), a screen headed STRANDED names the wrong one — and the item's own rule_broken already says the check resolves it as 0 HP, so the screen contradicts itself as well as the passage."
+            }
+          ],
+          "corrected": {
+            "title": "SHIP DESTROYED",
+            "cause": "Staged, chute shredded, and the lowest touchdown speed still reachable was past the destruction cap. The check called it there rather than making you fly the fall out."
+          }
+        }
+      ],
+      "corrections": [
+        {
+          "id": "refused",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "Not like that, kid. She goes back up and you fly it again.",
+              "evidence": "[1b] \"or refused — the module delivered in scrap state, Armstrong's fury (finale only, §2.6)\"",
+              "cites": [
+                "1b",
+                "2.6c"
+              ],
+              "why": "The document names this ending's reaction specifically — Armstrong's fury — and it is the finale beat the graded endings pay off. The line as written is patient and forgiving, which is the register of a teaching turnaround, not of the one delivery he refuses."
+            }
+          ],
+          "before": {
+            "armstrong": "Not like that, kid. She goes back up and you fly it again."
+          },
+          "after": {
+            "armstrong": "Scrap. You hauled me back scrap, kid. She goes up again and you don't bring her down like that twice."
+          }
+        },
+        {
+          "id": "stranded_c",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "The descent stayed under the heat-speed threshold, so it was survivable.",
+              "evidence": "[2.7a] \"An uncrewed ship grounding is a non-event — the ship parks inert and the run continues until the astronaut resolves it: board the parked ship → Landed; touch terrain not aboard → stranded.\"",
+              "cites": [
+                "2.7a",
+                "2.4c"
+              ],
+              "why": "The detector is touching terrain while not aboard, full stop. A slow descent through the interface is only one route in; the other is an astronaut already on the ground beside a parked, uncrewed hull, who never fell through anything. The screen would state a cause that did not happen."
+            }
+          ],
+          "before": {
+            "cause": "The astronaut touched terrain while not aboard the ship. The descent stayed under the heat-speed threshold, so it was survivable."
+          },
+          "after": {
+            "cause": "The astronaut touched terrain while not aboard the ship. How you got there does not change it — a slow fall that never got hot, or a step away from a hull parked on the ground. Landed needs the pilot aboard."
+          }
+        },
+        {
+          "id": "stranded_d",
+          "verdict": "revise",
+          "issues": [
+            {
+              "type": "contradicts_gdd",
+              "quote": "STRANDED",
+              "evidence": "[2.7b] \"(d) ship staged, chute shredded, on a descent whose minimum achievable touchdown speed exceeds the destruction cap — a conservative closed-form check, like the lamps — resolved immediately as 0 HP rather than flown out in real time.\"",
+              "cites": [
+                "2.7b",
+                "2.7a"
+              ],
+              "why": "Clause (d) is a branch of the unwinnability check, but the document says it resolves as 0 HP, not as stranded. Since every reachable end state resolves to exactly one outcome (§2.7), a screen headed STRANDED names the wrong one — and the item's own rule_broken already says the check resolves it as 0 HP, so the screen contradicts itself as well as the passage."
+            }
+          ],
+          "before": {
+            "title": "STRANDED",
+            "cause": "Staged, chute shredded, and the lowest touchdown speed still reachable was past the destruction cap."
+          },
+          "after": {
+            "title": "SHIP DESTROYED",
+            "cause": "Staged, chute shredded, and the lowest touchdown speed still reachable was past the destruction cap. The check called it there rather than making you fly the fall out."
+          }
+        }
+      ],
+      "unresolved": [],
+      "recheck": {
+        "agent": "lore-critic",
+        "verdict": "pass",
+        "summary": "All three post-mortems hold against the passages — outcome, detector and register are right in each, including the correct call to title stranded_d as SHIP DESTROYED per §2.7's 0 HP resolution; one non-blocking bookkeeping note: stranded_d's grounded_in cites 2.2g for the shred rule, which is stated in 2.2f (\"a parachute deployed during plasma shreds\"), 2.2g covering only the post-plasma deploy order.",
+        "reviews": [
+          {
+            "id": "refused",
+            "verdict": "pass",
+            "issues": []
+          },
+          {
+            "id": "stranded_c",
+            "verdict": "pass",
+            "issues": []
+          },
+          {
+            "id": "stranded_d",
+            "verdict": "pass",
+            "issues": []
+          }
+        ]
+      }
+    }
+  }
+}

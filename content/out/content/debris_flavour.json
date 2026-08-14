@@ -1,0 +1,303 @@
+{
+  "generated_at": "2026-08-14T04:35:21.840Z",
+  "design_document": "Junkstronaut GDD Short.txt",
+  "pipeline": "content/run-content.js",
+  "note": "Generated from passages retrieved from the design document, then checked against those same passages by the lore critic. Corrections and the drafts they replaced are in critique/critique_log.json.",
+  "debris_catalog": "content/data/debris_catalog.snapshot.json",
+  "pieces": {
+    "torn_foil_blanket": {
+      "display_name": "Chipped Hull Slab",
+      "flavour": "A six-sided grey slab with fracture lines crawling right across its face and a notch bitten out of the top edge. Lightest thing in the whole field, and it still wants to come apart in the tether.",
+      "reads_as": [
+        "light",
+        "low",
+        "fragile",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "crumpled_panel_stack": {
+      "display_name": "Scorched Layer Stack",
+      "flavour": "Quilted beige sheeting over white, rust and blue under-layers, with a ragged burn hole punched clean through the top face. Cheap floor scrap, sold by the armful.",
+      "reads_as": [
+        "light",
+        "low",
+        "cheap",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "cracked_solar_array": {
+      "display_name": "Split Cell Panel Shards",
+      "flavour": "Two angular gridded blue fragments, tilted apart where one panel let go. The pale edges are glass-sharp and the grid will keep on splitting if you jostle it.",
+      "reads_as": [
+        "light",
+        "low",
+        "fragile",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "bent_truss_section": {
+      "display_name": "Tangled Rod Mat",
+      "flavour": "A dozen thin rusty bars crossed at every angle in a flat mat, speckled brown where the coating gave up. Scraped off the floor of the envelope, and it pays like the floor.",
+      "reads_as": [
+        "low",
+        "cheap",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "spent_kick_motor_casing": {
+      "display_name": "Spent Kick Motor Casing",
+      "flavour": "An hourglass of grey metal, flared at both ends with a sooty throat pinched in the middle. Compact, solid, and heavier in the hand than it looks from the cockpit.",
+      "reads_as": [
+        "low",
+        "solid",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "collapsed_dish_frame": {
+      "display_name": "Collapsed Dish Frame",
+      "flavour": "A shallow grey dish still bolted to its stump of a base, feed arm reaching over the centre, rim dented and split down one side. Bulky enough to fight you all the way to the hold.",
+      "reads_as": [
+        "low",
+        "solid",
+        "oversized"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "shredded_antenna_mesh": {
+      "display_name": "Snapped Antenna Boom",
+      "flavour": "One long shaft carrying ten short crossbars, half of them kinked or broken off short, with a blue-grey lump fused near the low end. The rest snap if you swing it.",
+      "reads_as": [
+        "low",
+        "fragile",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "cracked_battery_pallet": {
+      "display_name": "Yellow-Framed Cell Box",
+      "flavour": "A dark slab of a unit wrapped in a fat yellow crash frame, tipped on its side, one small inset port winking pale at the corner. Whole, and it survived whatever put it here.",
+      "reads_as": [
+        "low",
+        "solid",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "seized_reaction_wheel_housing": {
+      "display_name": "Seized Reaction Wheel",
+      "flavour": "Eight spokes from a stubby hub out to a wide flat rim, one notch chewed out of the low edge. It does not turn any more and it does not care that you tried.",
+      "reads_as": [
+        "low",
+        "solid",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "burst_pressurant_sphere": {
+      "display_name": "Pitted Slag Cluster",
+      "flavour": "Three or four black angular chunks jammed together, faces pitted, chipped edges going pale where something struck them. No seams, no fittings, nothing manufactured left in it.",
+      "reads_as": [
+        "low",
+        "solid",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "delaminated_radiator_fin": {
+      "display_name": "Bolted Bracket Plate",
+      "flavour": "A stepped grey plate with six bolt holes near the corners and two scratches scored across the middle. Thin enough that a rough grab is what finally folds it.",
+      "reads_as": [
+        "low",
+        "fragile",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "torn_solar_wing_spar": {
+      "display_name": "Paired Solar Wings",
+      "flavour": "Two tall wings side by side, ruled into dark blue cells with pale dividers, the right one sitting a few degrees out of true with its neighbour. Flat, awkward, and it catches on everything.",
+      "reads_as": [
+        "solid",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "cracked_optics_barrel": {
+      "display_name": "Ringed Optics Barrel",
+      "flavour": "A short ribbed cylinder on its side, front element dark and holding one bright cyan glint, with a spare ring section parked behind it. That glint goes the first time you knock it.",
+      "reads_as": [
+        "fragile",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "fractured_docking_collar": {
+      "display_name": "Fractured Docking Collar",
+      "flavour": "A heavy hollow ring, thicker on one side, with a bite broken out of the upper rim and three specks of itself still drifting alongside. Whatever it held on to, it let go.",
+      "reads_as": [
+        "solid",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "dead_thruster_quad": {
+      "display_name": "Dead Thruster Housing",
+      "flavour": "A corrugated drum of pale ridged discs bolted to a tan block, with one brown feed line looping over the top and back down. Dry as a bone since the cascade.",
+      "reads_as": [
+        "solid",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "buckled_pressure_bulkhead": {
+      "display_name": "Buckled Bulkhead Sheet",
+      "flavour": "A ragged-edged grey plate with a deep crease folded through it, shedding chips off one side as it turns. Oversized, unwieldy, and it costs you most of a trip on its own.",
+      "reads_as": [
+        "heavy",
+        "oversized"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "ruptured_helium_tank": {
+      "display_name": "Strapped Insulation Roll",
+      "flavour": "Quilted blue soft goods rolled long and cinched at the waist with tan strapping, ends still puffed out. Intact, which around here counts as a small miracle.",
+      "reads_as": [
+        "solid",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "shattered_star_tracker": {
+      "display_name": "Shattered Star Tracker",
+      "flavour": "A bevelled frame holding pale blue glass, cracks radiating out from a black star-shaped hole punched dead centre. One more knock and you are hauling a frame full of grit.",
+      "reads_as": [
+        "fragile",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "warped_gyro_deck": {
+      "display_name": "Instrument Deck Cabinet",
+      "flavour": "An upright grey cabinet with a blue screen, rows of coloured indicator strips and a vent grid, red and blue cables spilling out the bottom and a yellow rod jutting off the top.",
+      "reads_as": [
+        "solid",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "cracked_ablative_nose_cone": {
+      "display_name": "Cracked Nose Cone Shell",
+      "flavour": "A tapering grey shell with a raised rib running down the spine and a jagged broken edge where the rest of it stayed behind. Already half gone, so handle the half you have.",
+      "reads_as": [
+        "fragile",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "split_avionics_rack": {
+      "display_name": "Green Avionics Card",
+      "flavour": "One green board, two fat black chips, a red can and a row of gold contact fingers along the bottom edge, with a mounting tab still sticking out the side. Snaps like a biscuit.",
+      "reads_as": [
+        "fragile",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "torn_reactor_shield_plate": {
+      "display_name": "Torn Board Fragment",
+      "flavour": "A jagged green shard with two yellow stripes and a couple of components clinging on, one splinter drifting free and a rust-brown wire curling underneath. Top-shelf scrap, and it pays like it.",
+      "reads_as": [
+        "high",
+        "valuable",
+        "medium"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "cracked_deep_space_dish": {
+      "display_name": "Dented Deep Space Dish",
+      "flavour": "A grey dish on a blocky mount, feed arm on struts crossing its face, rim gone irregular where something folded it. Thin skin, high price, and it dents if you look at it wrong.",
+      "reads_as": [
+        "high",
+        "fragile",
+        "valuable"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "fused_ion_grid_assembly": {
+      "display_name": "Emptied Grid Frame",
+      "flavour": "A square navy frame with nothing left inside it but pale cyan shards angling in from the corners and a hollow middle. What is left is edges, so tether it gently.",
+      "reads_as": [
+        "high",
+        "fragile",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "severed_boom_mast": {
+      "display_name": "Severed Cable Run",
+      "flavour": "A braided strand running long and twisted, frayed open into a bristly knot where it was cut. Bulky in the hold, and this high up every kilo of it pays.",
+      "reads_as": [
+        "high",
+        "valuable",
+        "oversized"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "scorched_fuel_cell_stack": {
+      "display_name": "Cell Tray Assembly",
+      "flavour": "A grey open case partitioned into compartments of blocky cells, yellow, red and orange bars still marking charge on each one. Dense, tidy, and worth the climb.",
+      "reads_as": [
+        "high",
+        "valuable",
+        "solid"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "shattered_cryo_dewar": {
+      "display_name": "Stencilled H2O Tank",
+      "flavour": "A bright cyan tank on its side, stub fittings at both ends, one nozzle up top and H2O stencilled black across the belly. Somebody's drinking water, worth a fortune this high up — and a shell thin enough to split on a rough haul.",
+      "reads_as": [
+        "high",
+        "fragile",
+        "valuable"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "impact_pitted_engine_bell": {
+      "display_name": "Sooted Engine Bell",
+      "flavour": "A flared cone standing on ring ridges, throat black with soot and the base rim crusted rust-brown. Dense enough that the tether goes taut before you have finished pulling.",
+      "reads_as": [
+        "high",
+        "heavy",
+        "solid"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "cracked_command_module_hatch": {
+      "display_name": "Six-Sided Fastener Ring",
+      "flavour": "One small hex ring, face-on, hole through the middle, a highlight on the upper corner and nothing else in the cell. It will not take a knock, and it is absurd that a nut from up here outsells a panel from down low.",
+      "reads_as": [
+        "high",
+        "fragile",
+        "small"
+      ],
+      "gdd_ref": "§2.6a"
+    },
+    "armstrongs_module": {
+      "display_name": "Armstrong's Module",
+      "flavour": "A grey canister lying diagonal, rimmed at both ends, two yellow bands around its body, one end dented and a chip broken off beside it. Apollo-era, older than the cascade, and heavier on its own than everything else in the field put together.",
+      "reads_as": [
+        "heavy",
+        "high",
+        "valuable",
+        "small"
+      ],
+      "gdd_ref": "§2.6a, §5d"
+    }
+  }
+}

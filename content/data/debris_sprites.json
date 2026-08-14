@@ -1,0 +1,63 @@
+{
+  "_comment": [
+    "Maps DESIGN.md §2.6's 29-piece debris catalogue onto the licensed sprite pack in",
+    "assets/asteroid and Space junks/. The catalogue ids are the authority — this file",
+    "only says which picture goes with which id, and carries no mass, value or altitude.",
+    "Those live in the game config, because §4.3 cut size classes: every piece is one slot",
+    "and differs only in mass and value, so a sprite can never change what a piece is worth.",
+    "",
+    "Assignments were made by eye from the pack's own contact sheets and are recorded here",
+    "rather than derived at runtime, so a sprite that reads wrong can be corrected in one",
+    "place without touching the catalogue.",
+    "",
+    "The file naming is the pack's own, including its 'Aestroid' typo. Left as shipped so",
+    "the tree still matches the archive it came from."
+  ],
+  "sprite_dir": "res://assets/asteroid and Space junks/",
+  "filename_pattern": "Aestroid and space junk (%d).png",
+  "catalogue": {
+    "torn_foil_blanket": 111,
+    "crumpled_panel_stack": 148,
+    "cracked_solar_array": 98,
+    "bent_truss_section": 153,
+    "spent_kick_motor_casing": 105,
+    "collapsed_dish_frame": 149,
+    "shredded_antenna_mesh": 262,
+    "cracked_battery_pallet": 112,
+    "seized_reaction_wheel_housing": 48,
+    "burst_pressurant_sphere": 264,
+    "delaminated_radiator_fin": 44,
+    "torn_solar_wing_spar": 253,
+    "cracked_optics_barrel": 157,
+    "fractured_docking_collar": 115,
+    "dead_thruster_quad": 159,
+    "buckled_pressure_bulkhead": 100,
+    "ruptured_helium_tank": 193,
+    "shattered_star_tracker": 155,
+    "warped_gyro_deck": 50,
+    "cracked_ablative_nose_cone": 109,
+    "split_avionics_rack": 154,
+    "torn_reactor_shield_plate": 255,
+    "cracked_deep_space_dish": 36,
+    "fused_ion_grid_assembly": 199,
+    "severed_boom_mast": 158,
+    "scorched_fuel_cell_stack": 49,
+    "shattered_cryo_dewar": 197,
+    "impact_pitted_engine_bell": 35,
+    "cracked_command_module_hatch": 108,
+    "armstrongs_module": 34
+  },
+  "_module_note": [
+    "armstrongs_module is the win condition (§2.6) and 34 is a placeholder, not a choice.",
+    "It needs Apollo-era hardware that reads as OLDER than everything else in the field,",
+    "plus three condition states — pristine, damaged, scrap — reusing the shield's ablation",
+    "pattern, and a separate off-palette glint sprite for the overhead marker. No pack here",
+    "supplies any of that; change-log row `art-open-items` expects it to be commissioned."
+  ],
+  "_unused": [
+    "57 of the pack's 87 sprites are unassigned. Deliberate: they are the pool for size and",
+    "silhouette variety within a piece type, and for the asteroid-rather-than-wreckage look",
+    "if the band ever wants some. Do not delete them to satisfy a 'assets/ carries only what",
+    "the game uses' check without first deciding that question."
+  ]
+}

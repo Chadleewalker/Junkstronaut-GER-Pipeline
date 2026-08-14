@@ -1,0 +1,176 @@
+{
+  "generated_at": "2026-08-14T04:35:21.840Z",
+  "design_document": "Junkstronaut GDD Short.txt",
+  "pipeline": "content/run-content.js",
+  "note": "Generated from passages retrieved from the design document, then checked against those same passages by the lore critic. Corrections and the drafts they replaced are in critique/critique_log.json.",
+  "barks": [
+    {
+      "id": "plasma_chute_warning",
+      "source": "gdd",
+      "gdd_ref": "§1",
+      "state": "Plasma is up and the player reaches for the parachute",
+      "trigger": null,
+      "line": "Chute stays packed while she's glowing, kid"
+    },
+    {
+      "id": "module_first_sighted",
+      "source": "gdd",
+      "gdd_ref": "§1, §2.6",
+      "state": "First time the player crosses half-envelope and the module's glint renders overhead",
+      "trigger": null,
+      "line": "See her glinting up there? That's the one. Not yet, kid."
+    },
+    {
+      "id": "free_turnaround",
+      "source": "gdd",
+      "gdd_ref": "§2.5",
+      "state": "One of the first three turnarounds, which Armstrong does not charge for",
+      "trigger": null,
+      "line": "Teaching's part of the debt, kid"
+    },
+    {
+      "id": "first_launch",
+      "source": "generated",
+      "gdd_ref": "§2.5d, §2.6a",
+      "state": "The first launch of the campaign, engine lit, still on the pad",
+      "trigger": "run_index == 0 && thrust first applied",
+      "line": "Arc it, kid. Circularising is the rest of your tank — you'd get up there with nothing left to bring her back down."
+    },
+    {
+      "id": "climb_heat_first",
+      "source": "generated",
+      "gdd_ref": "§2.2a, §5b",
+      "state": "The heat bar first moves on the way up, during the ascent",
+      "trigger": "ascent && heat > 0 && first time this run",
+      "line": "Bar moves on the way up too. She's built for that ride — read it now, so you know it later."
+    },
+    {
+      "id": "staged",
+      "source": "generated",
+      "gdd_ref": "§2.2b, §2.2c",
+      "state": "The player stages, jettisoning thruster and tank and exposing the shield",
+      "trigger": "stage() fires",
+      "line": "That's your thruster and tank gone, kid. Shield's out front now, and there's no burn left to change your mind."
+    },
+    {
+      "id": "commit_floor_blocked",
+      "source": "generated",
+      "gdd_ref": "§2.2d, §4.4b",
+      "state": "The player tries to aim a committed entry shallower than the commit floor",
+      "trigger": "entry aim clamped at reentry.commit_floor_m",
+      "line": "That's as shallow as the RCS will hold her. She's scrap, kid — she can't aim an entry any finer than that."
+    },
+    {
+      "id": "skim_complete",
+      "source": "generated",
+      "gdd_ref": "§2.2f, §2.2c",
+      "state": "A braking pass ends and the ship comes back out of the atmosphere",
+      "trigger": "braking pass exits the interface",
+      "line": "Speed's off her. Next pass costs more plate than that one did — they always do."
+    },
+    {
+      "id": "first_plasma",
+      "source": "generated",
+      "gdd_ref": "§2.2g, §2.2f",
+      "state": "Plasma appears for the first time in the campaign",
+      "trigger": "speed > plasma threshold in atmosphere && first time",
+      "line": "That glow is the state the CHUTE lamp is watching, kid. Wait for green."
+    },
+    {
+      "id": "chute_green",
+      "source": "generated",
+      "gdd_ref": "§2.2g",
+      "state": "Plasma clears and the salvaged CHUTE lamp flips from red to green",
+      "trigger": "chute_lamp transitions red -> green",
+      "line": "Lamp's green. Chute first, then gear — that order, every time."
+    },
+    {
+      "id": "shield_spent",
+      "source": "generated",
+      "gdd_ref": "§2.2g",
+      "state": "The shield plate runs out and the hold starts burning",
+      "trigger": "shield_hp <= 0 && heat pinned at capacity",
+      "line": "Plate's gone. She's eating the hold now, shield end first — hull's last in line and that's no comfort."
+    },
+    {
+      "id": "hold_mass_amber",
+      "source": "generated",
+      "gdd_ref": "§2.4a, §2.4b",
+      "state": "The suit's hold-mass dial crosses from green into amber at a stow",
+      "trigger": "hold_mass crosses scale.amber_kg on stow",
+      "line": "Dial's amber, kid. At that mass a clean chute deploy still puts her down hard."
+    },
+    {
+      "id": "hold_mass_red",
+      "source": "generated",
+      "gdd_ref": "§2.4a, §2.4b, §2.1",
+      "state": "The hold-mass dial crosses into red at a stow",
+      "trigger": "hold_mass crosses scale.red_kg on stow",
+      "line": "Red on the scale, kid. What's banked is banked, and that ride down is destructive — the next piece you get on the tether, right hand button, let it drift."
+    },
+    {
+      "id": "return_lamp_red",
+      "source": "generated",
+      "gdd_ref": "§2.4b, §2.4c",
+      "state": "The RETURN lamp goes red while the astronaut is towing a piece",
+      "trigger": "return_lamp transitions green -> red",
+      "line": "RETURN's red — that's fuel and distance, not heat. Drop the piece, kid, and get back in tether range."
+    },
+    {
+      "id": "tow_fee_charged",
+      "source": "generated",
+      "gdd_ref": "§2.5a, §2.5b",
+      "state": "The run ends away from the pad and the haul sells minus a tow fee",
+      "trigger": "landed && distance_from_pad > tow.free_radius_m",
+      "line": "Drones fetched you. That's a service, kid, and it's on the invoice — land near the yard and it's free."
+    },
+    {
+      "id": "hard_landing",
+      "source": "generated",
+      "gdd_ref": "§2.3",
+      "state": "Touchdown above the soft-landing threshold, ship intact",
+      "trigger": "landed && vertical_speed > landing.soft_ms",
+      "line": "She's dented, kid. Chute had to come out earlier than that."
+    },
+    {
+      "id": "module_tethered",
+      "source": "generated",
+      "gdd_ref": "§2.6b, §2.6d",
+      "state": "The module is tethered for the first time; delivery terms are stated",
+      "trigger": "module tethered && first time",
+      "line": "You've got her. Bring her down pristine and it's a good day; damaged and I'll pay you less; scrap and I won't take her at all."
+    },
+    {
+      "id": "module_degraded",
+      "source": "generated",
+      "gdd_ref": "§2.6c",
+      "state": "The module drops one condition state, pristine to damaged or damaged to scrap",
+      "trigger": "module.state decrements",
+      "line": "I can see the scorch from here, kid. She just dropped a state and I'm not pretending otherwise."
+    },
+    {
+      "id": "burned_up",
+      "source": "generated",
+      "gdd_ref": "§2.4c, §1b",
+      "state": "The astronaut is caught outside in atmosphere above the heat-speed threshold",
+      "trigger": "terminal state Burned up",
+      "line": "Suit was never rated for that, kid. She's back on the pad — you're out the haul and the cost of turning her around, and nothing past that."
+    },
+    {
+      "id": "ending_pristine",
+      "source": "generated",
+      "gdd_ref": "§1a, §2.6c",
+      "state": "Pristine module delivered — Armstrong's triumph, the campaign's win",
+      "trigger": "Landed && module.state == pristine",
+      "line": "I flew that program, kid. Watched her go up. Never thought I'd get to put a hand on her again."
+    },
+    {
+      "id": "ending_refused",
+      "source": "generated",
+      "gdd_ref": "§2.6c, §2.7a",
+      "state": "Scrap-state module delivered — Armstrong's fury, a loss",
+      "trigger": "terminal state Refused",
+      "line": "No. Not like that. Get out of my yard — the drones will put what's left of her back up where you found her."
+    }
+  ]
+}

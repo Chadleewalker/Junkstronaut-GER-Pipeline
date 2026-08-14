@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "required": ["agent", "barks"],
+  "additionalProperties": false,
+  "properties": {
+    "agent": { "const": "bark-writer" },
+    "barks": {
+      "type": "array",
+      "minItems": 18,
+      "maxItems": 18,
+      "items": {
+        "type": "object",
+        "required": ["id", "line", "grounded_in", "why"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "line": { "type": "string", "pattern": "^[^\\n]{12,140}$" },
+          "grounded_in": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?[a-z]?$" }
+          },
+          "why": { "type": "string", "minLength": 20 }
+        }
+      }
+    },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

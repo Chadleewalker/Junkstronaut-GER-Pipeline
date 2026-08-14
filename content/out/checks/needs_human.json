@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-08-14T04:35:21.840Z",
+  "design_document": "Junkstronaut GDD Short.txt",
+  "pipeline": "content/run-content.js",
+  "note": "Generated from passages retrieved from the design document, then checked against those same passages by the lore critic. Corrections and the drafts they replaced are in critique/critique_log.json.",
+  "method": "The refine loop is one pass: write, judge, correct, re-judge. Anything still failing after that is escalated rather than retried — see content/lib/escalate.js for why a second pass would be the wrong answer. Nothing in this file changed any output; the generated content ships as written so a human can read the flagged line in place.",
+  "tripped": true,
+  "total": 11,
+  "distinct_items": 9,
+  "by_kind": {
+    "refine_exhausted": 3,
+    "data_conflict": 8
+  },
+  "items": [
+    {
+      "id": "bent_truss_section",
+      "type": "debris",
+      "kind": "refine_exhausted",
+      "detail": "still revise after one correction — number_disagrees: The floor is 50,000 m and pays 1.0x. This piece is 17 km above it at 67,000 m, the fourth row up, paying about 1.33x — low in the band, but not the floor and not floor money.",
+      "looks_like": "one correction did not settle it; a second pass at the same prompt is not progress"
+    },
+    {
+      "id": "severed_boom_mast",
+      "type": "debris",
+      "kind": "refine_exhausted",
+      "detail": "still revise after one correction — contradicts_gdd: The collision is between the document and the table, not inside the writing: §4.3 cut size classes and fixed every piece at one slot, and the table still carries a size_class column with oversized rows. Raising it once here for the whole set. The table is what the game spawns, so the bulk stays in the fiction; what does not stay is \"in the hold\", which asserts variable cargo space the passage explicitly closed.",
+      "looks_like": "one correction did not settle it; a second pass at the same prompt is not progress"
+    },
+    {
+      "id": "cracked_command_module_hatch",
+      "type": "debris",
+      "kind": "refine_exhausted",
+      "detail": "still revise after one correction — wrong_voice: \"the cell\" is the contact sheet's grid square — production language about the sprite sheet, not a place in the world. A player reading this in the hold is being told about an art asset.",
+      "looks_like": "one correction did not settle it; a second pass at the same prompt is not progress"
+    },
+    {
+      "id": "torn_foil_blanket",
+      "type": "debris",
+      "kind": "data_conflict",
+      "detail": "the blind reader's description does not support the id (mismatch) — suggests cracked_hull_plate",
+      "looks_like": "the id and the drawing disagree — the picture is the game, the id is a label somebody typed"
+    },
+    {
+      "id": "burst_pressurant_sphere",
+      "type": "debris",
+      "kind": "data_conflict",
+      "detail": "the blind reader's description does not support the id (mismatch)",
+      "looks_like": "the id and the drawing disagree — the picture is the game, the id is a label somebody typed"
+    },
+    {
+      "id": "delaminated_radiator_fin",
+      "type": "debris",
+      "kind": "data_conflict",
+      "detail": "Sprite shows a solid bolted metal plate described as intact, yet the piece carries the FRAGILE flag — art and tuning disagree.",
+      "looks_like": "the id and the drawing disagree — the picture is the game, the id is a label somebody typed"
+    },
+    {
+      "id": "ruptured_helium_tank",
+      "type": "debris",
+      "kind": "data_conflict",
+      "detail": "the blind reader's description does not support the id (mismatch)",
+      "looks_like": "the id and the drawing disagree — the picture is the game, the id is a label somebody typed"
+    },
+    {
+      "id": "torn_reactor_shield_plate",
+      "type": "debris",
+      "kind": "data_conflict",
+      "detail": "the blind reader's description does not support the id (mismatch)",
+      "looks_like": "the id and the drawing disagree — the picture is the game, the id is a label somebody typed"
+    },
+    {
+      "id": "severed_boom_mast",
+      "type": "debris",
+      "kind": "data_conflict",
+      "detail": "the blind reader's description does not support the id (mismatch)",
+      "looks_like": "the id and the drawing disagree — the picture is the game, the id is a label somebody typed"
+    },
+    {
+      "id": "shattered_cryo_dewar",
+      "type": "debris",
+      "kind": "data_conflict",
+      "detail": "the blind reader's description does not support the id (mismatch) — suggests potable_water_tank",
+      "looks_like": "the id and the drawing disagree — the picture is the game, the id is a label somebody typed"
+    },
+    {
+      "id": "cracked_command_module_hatch",
+      "type": "debris",
+      "kind": "data_conflict",
+      "detail": "A solid steel nut drawn intact carries the FRAGILE flag — art and tuning disagree.",
+      "looks_like": "the id and the drawing disagree — the picture is the game, the id is a label somebody typed"
+    }
+  ]
+}

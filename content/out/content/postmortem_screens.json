@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-08-14T04:35:21.840Z",
+  "design_document": "Junkstronaut GDD Short.txt",
+  "pipeline": "content/run-content.js",
+  "note": "Generated from passages retrieved from the design document, then checked against those same passages by the lore critic. Corrections and the drafts they replaced are in critique/critique_log.json.",
+  "screens": {
+    "landed": {
+      "terminal_state": "Landed",
+      "detector": "ship grounded, staged, and crewed",
+      "title": "LANDED",
+      "cause": "Ship down, staged, and crewed. The haul auto-sold where you came down, minus the tow fee if that was away from the yard.",
+      "rule_broken": "A run ends when the ship is staged, grounded, and crewed — the haul auto-sells and the turnaround begins.",
+      "armstrong": "Wheels down and the scale's honest. Turnaround's on the clock, kid.",
+      "gdd_ref": "§2.7a, §2.3"
+    },
+    "refused": {
+      "terminal_state": "Refused",
+      "detector": "a module delivered in scrap state",
+      "title": "REFUSED",
+      "cause": "The module was delivered in scrap state. Delivery was refused, and the drones returned it to orbit for a re-fly.",
+      "rule_broken": "A scrap-state module delivery resolves to refused — a loss, never a win; scrap never wins the run.",
+      "armstrong": "Scrap. You hauled me back scrap, kid. She goes up again and you don't bring her down like that twice.",
+      "gdd_ref": "§2.7a, §2.6c, §1b"
+    },
+    "zero_hp": {
+      "terminal_state": "0 HP",
+      "detector": "ship destroyed on a hard landing, or by reentering too hot",
+      "title": "SHIP DESTROYED",
+      "cause": "The ship is gone — a hard landing, or a reentry hot enough to pin the bar and burn through plate, then cargo, then hull.",
+      "rule_broken": "Heat spends shield plate first, cargo second, hull last; landings are graded on vertical speed, soft under about 5 m/s.",
+      "armstrong": "She's scrap now, kid. Pad's clear — cash and upgrades keep.",
+      "gdd_ref": "§2.7a, §2.2g, §2.3"
+    },
+    "burned_up": {
+      "terminal_state": "Burned up",
+      "detector": "astronaut on EVA in atmosphere above the heat-speed threshold",
+      "title": "BURNED UP",
+      "cause": "The astronaut was outside, in atmosphere, above the heat-speed threshold.",
+      "rule_broken": "The suit carries no heat protection — fuel is no defense, and F is inert once heat builds.",
+      "armstrong": "Suit's not a shield, kid. Never was.",
+      "gdd_ref": "§2.4c, §2.7a, §1b"
+    },
+    "stranded": {
+      "terminal_state": "Stranded",
+      "detector": "the run can no longer reach a landing and no recovery input remains",
+      "title": "STRANDED",
+      "cause": "The run could no longer reach a landing and no recovery input remained. The check fired and called it here.",
+      "rule_broken": "One unwinnability check fires when no landing remains and no input recovers it; warp is disabled the instant it arms.",
+      "armstrong": "Nothing left to fly out of that one, kid. Pad's waiting.",
+      "gdd_ref": "§2.7b"
+    },
+    "stranded_a": {
+      "terminal_state": "Stranded (a)",
+      "detector": "ship undeorbitable — out of fuel, or staged so the tank is gone — on an arc whose periapsis never enters the atmosphere",
+      "title": "STRANDED",
+      "cause": "The ship cannot deorbit — out of fuel, or staged so the tank is gone — on an arc whose periapsis never enters the atmosphere.",
+      "rule_broken": "Staging is one-way and kills all thrust, and an arc whose periapsis never enters the atmosphere never comes down.",
+      "armstrong": "No tank, no burn, no down. That's the arithmetic, kid.",
+      "gdd_ref": "§2.7b, §3b"
+    },
+    "stranded_b": {
+      "terminal_state": "Stranded (b)",
+      "detector": "astronaut jetpack-dry beyond tether reach of the ship",
+      "title": "STRANDED",
+      "cause": "The jetpack ran dry with the astronaut beyond tether reach of the ship.",
+      "rule_broken": "The magnet grips the hull, so a dry jetpack inside tether range is only an inconvenience — outside it, nothing to winch.",
+      "armstrong": "RETURN lamp goes red, you let the piece go. Every time, kid.",
+      "gdd_ref": "§2.4b, §2.4a, §2.7b"
+    },
+    "stranded_c": {
+      "terminal_state": "Stranded (c)",
+      "detector": "astronaut touching terrain while not aboard the ship",
+      "title": "STRANDED",
+      "cause": "The astronaut touched terrain while not aboard the ship. How you got there does not change it — a slow fall that never got hot, or a step away from a hull parked on the ground. Landed needs the pilot aboard.",
+      "rule_broken": "Landed requires the astronaut aboard — touching terrain while not aboard the ship is stranded, not a landing.",
+      "armstrong": "Standing in the dirt without her is still standing in the dirt, kid.",
+      "gdd_ref": "§2.7a, §2.4c, §3b"
+    },
+    "stranded_d": {
+      "terminal_state": "Stranded (d)",
+      "detector": "ship staged, chute shredded, on a descent whose minimum achievable touchdown speed exceeds the destruction cap",
+      "title": "SHIP DESTROYED",
+      "cause": "Staged, chute shredded, and the lowest touchdown speed still reachable was past the destruction cap. The check called it there rather than making you fly the fall out.",
+      "rule_broken": "A parachute deployed during plasma shreds; a conservative closed-form check resolves the doomed descent as 0 HP at once.",
+      "armstrong": "Canopy's gone, kid. Wasn't coming down soft after that.",
+      "gdd_ref": "§2.7b, §2.2g, §2.4b"
+    }
+  }
+}
