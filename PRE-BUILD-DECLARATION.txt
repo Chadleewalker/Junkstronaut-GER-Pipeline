@@ -4,18 +4,18 @@ Chad Walker · capstone game: Junkstronaut
 01. Content type generated manually, inconsistently, or not at all
 
 Debris flavour text. The game spawns 30 junk types from a catalogue holding mass,
-altitude, size class and a fragile flag — and nothing a player ever reads. No display
-name, no description. Written by hand, thirty at a time, they drift.
+altitude, size class and a fragile flag — and nothing a player ever reads. Written by
+hand, thirty at a time, they drift.
 
 02. The GDD rule every piece must satisfy
 
 The fiction must match the mechanics. Cargo value and survivability are the same
 variable, so a piece's words must agree with its numbers: fragile in the catalogue reads
-fragile, the top of the altitude band never reads low, and the heaviest piece in the
-game never reads light.
+fragile, the top of the altitude band never reads low, the heaviest piece never reads
+light.
 
 03. What a failure looks like, concretely
 
-The player tethers the 3,600 kg Apollo service module at 277,000 m — the piece the whole
-game is built around — and the hold reads "a light scrap of hull plating, easy haul".
+The player tethers the 3,600 kg Apollo service module at 277,000 m — the piece the
+finale is built around — and the hold reads "a light scrap of hull plating, easy haul".
 Fluent, and it teaches the opposite of the decision the finale is about.
