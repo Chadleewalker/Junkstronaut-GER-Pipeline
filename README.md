@@ -148,6 +148,17 @@ The file is written on **every** run, including a clean one. A file that only ap
 something is wrong is a file nobody learns to look for; `"tripped": false` is a result, not an
 absence.
 
+**The clearest thing it caught is a disagreement between the document and the table.** §4.3 cuts
+the fragile flag and size classes — "every piece is one slot" — and `config/debris_catalog.json`
+still carries both columns, because the catalogue predates the cut and nothing propagated it. The
+checker enforces them; the writers keep meeting passages that say they no longer exist. Neither
+side is a bug on its own, and no amount of rewriting resolves it: `severed_boom_mast` escalates
+carrying the collision in the critic's own words — *"§4.3 cut size classes and fixed every piece at
+one slot, and the table still carries a size_class column with oversized rows."* That is design
+drift, not a content defect, and it is the class of thing a loop should hand back rather than paper
+over. The mass and altitude halves of the GDD rule stand on live design and are unaffected: the
+value gradient and the 3,600 kg module at the ceiling are both §2.6, not §4.3.
+
 ---
 
 ## Did it catch something I would have missed?
